@@ -1,10 +1,9 @@
 import React,{useState} from "react";
+import OddEvenResult from "./OddEvenResult";
 
-const Counter = () => {
+const Counter = ({initialValue}) => {
 
-    // console.log("카운터 호출");
-
-    const [count,setCount] = useState(0);
+    const [count,setCount] = useState(initialValue);
     /**
      * useState(0)의 메서드인 useState는 배열의 비구조화 할당(역으로 배열의 값을 메서드에 할당하는 것)
      * 을 통해 배열의 0번째index = count, 1번째 index = setCount로 할당 받는다.
@@ -33,15 +32,6 @@ const Counter = () => {
         setCount(count-1);
     }
 
-    const [count2,setCount2] = useState(0);
-
-    const onIncrease2 = () => {
-        setCount2(count2+1);
-    };
-
-    const onDecrease2 = () => {
-        setCount2(count2-1);
-    }
 
     /**
      * count setCount 같은 경우 const 로 선언되는 상수 이기 때문에
@@ -56,14 +46,10 @@ const Counter = () => {
             <h2>{count}</h2>
             <button onClick={onIncrease}>+</button>
             <button onClick={onDecrease}>-</button>
-
-            <h2>{count2}</h2>
-            <button onClick={onIncrease2}>+</button>
-            <button onClick={onDecrease2}>-</button>
-            
+            <OddEvenResult count={count}/>        
         </div>
-    )
-}
+    );
+};
 /**
  * js 에서는 해당 html에 동적기능을 넣고 싶을때
  * onclick = "inCrease()"형식으로 큰따옴표 + 함수이름 ()를 넣었다.
@@ -74,5 +60,15 @@ const Counter = () => {
  * component 는 자신이 가진 state(상태)가 변화하면 다시 리렌더를 한다.
  * 즉 상태가 변하면 위의 useState 메서드를 통해 제작한 inCrease,deCrease 함수를
  * 다시 호출한다.
+ */
+
+Counter.defaultProps = {
+    initialValue:0,
+}
+
+/**
+ * props 함수이름.defaultProps 를 이용하면 외부 에서 설정된 props 값을
+ * 전달 받지 못하더라도 내부 객체에 설정된 값으로 props값이 전달되어 err를 방지
+ * 할수 있다.
  */
 export default Counter;
